@@ -3,9 +3,9 @@
 one:
   title: MyString
   description: MyString
-  price: 1.5
+  author_id: 
 
 two:
   title: MyString
   description: MyString
-  price: 1.5
+  author_id: 

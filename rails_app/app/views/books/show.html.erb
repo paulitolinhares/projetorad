@@ -1,19 +1,26 @@
-<p id="notice"><%= notice %></p>
+<div class="page-header">
+  <%= link_to books_path, :class => 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Back
+  <% end %>
+  <%= link_to edit_book_path(@book), :class => 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Edit
+  <% end %>
+  <h1>Show book</h1>
+</div>
 
-<p>
-  <strong>Title:</strong>
-  <%= @book.title %>
-</p>
+<dl class="dl-horizontal">
+  <dt>Title:</dt>
+  <dd><%= @book.title %></dd>
 
-<p>
-  <strong>Description:</strong>
-  <%= @book.description %>
-</p>
+  <dt>Description:</dt>
+  <dd><%= @book.description %></dd>
 
-<p>
-  <strong>Price:</strong>
-  <%= @book.price %>
-</p>
+  <dt>Author:</dt>
+  <dd><%= author_full_name(@book.author) %></dd>
 
-<%= link_to 'Edit', edit_book_path(@book) %> |
-<%= link_to 'Back', books_path %>
+  <dt>Price:</dt>
+  <dd><%= monetize(@book.price) %></dd>
+
+</dl>
