@@ -12,9 +12,11 @@
       <tr>
             <th>First name</th>
             <th>Last name</th>
-            <th></th>
-        <th></th>
-        <th></th>
+            <th>Show</th>
+            <% if current_user.try(:admin?) %>
+              <th>Edit</th>
+              <th>Destroy</th>
+            <% end %>
       </tr>
     </thead>
 
@@ -23,8 +25,10 @@
             <td><%= author.first_name %></td>
             <td><%= author.last_name %></td>
             <td><%= link_to 'Show', author %></td>
-        <td><%= link_to 'Edit', edit_author_path(author) %></td>
-        <td><%= link_to 'Destroy', author, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% if current_user.try(:admin?) %>
+              <td><%= link_to 'Edit', edit_author_path(author) %></td>
+              <td><%= link_to 'Destroy', author, method: :delete, data: { confirm: 'Are you sure?' } %></td>      
+            <% end %>
       <% end %>
     </tbody>
   </table>

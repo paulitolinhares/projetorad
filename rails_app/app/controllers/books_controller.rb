@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_admin, only: [:edit, :update, :destroy]
 
   # GET /books
   # GET /books.json
@@ -78,5 +79,11 @@ class BooksController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
       params.require(:book).permit(:title, :description, :price, :author_id)
+    end
+
+    def authenticate_admin
+      unless current_user.try(:admin?)
+        redirect_to :books, notice: "You don't have access to this area"
+      end
     end
 end

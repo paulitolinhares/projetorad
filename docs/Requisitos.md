@@ -18,7 +18,7 @@
 - Ajax
 - Content Negotion (xml, json, html, atom/RSS)
 - Slug URL; friendly_id
-- Session & login (criptografia com salt, bcrypt); Devise; Active Admin
+- Session & login (criptografia com salt, bcrypt); Devise; Active Admin ok
 - Mail
 - i18n
 - 2 gems inéditas

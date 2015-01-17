@@ -1,5 +1,6 @@
 class AuthorsController < ApplicationController
   before_action :set_author, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_admin, only: [:edit, :update, :destroy]
 
   # GET /authors
   # GET /authors.json
@@ -70,5 +71,11 @@ class AuthorsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def author_params
       params.require(:author).permit(:first_name, :last_name)
+    end
+
+    def authenticate_admin
+      unless current_user.try(:admin?)
+        redirect_to :authors, notice: "You don't have access to this area"
+      end
     end
 end

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :authors
 
   resources :books
@@ -7,7 +8,9 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'books#index'
+
+  get 'login' => 'devise/sessions#new' 
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
