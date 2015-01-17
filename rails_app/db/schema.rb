@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150116230630) do
+ActiveRecord::Schema.define(version: 20150116234942) do
 
   create_table "authors", force: :cascade do |t|
     t.string   "first_name"
@@ -26,8 +26,26 @@ ActiveRecord::Schema.define(version: 20150116230630) do
     t.integer  "author_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.float    "price"
   end
 
   add_index "books", ["author_id"], name: "index_books_on_author_id"
+
+  create_table "order_items", force: :cascade do |t|
+    t.integer  "quantity"
+    t.integer  "book_id_id"
+    t.integer  "order_id_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "order_items", ["book_id_id"], name: "index_order_items_on_book_id_id"
+  add_index "order_items", ["order_id_id"], name: "index_order_items_on_order_id_id"
+
+  create_table "orders", force: :cascade do |t|
+    t.float    "total"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 end
