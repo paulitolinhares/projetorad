@@ -4,7 +4,7 @@ class BooksController < ApplicationController
   # GET /books
   # GET /books.json
   def index
-    @books = Book.all
+    @books = Book.paginate(:page => params[:page])
   end
 
   # GET /books/1
@@ -26,17 +26,23 @@ class BooksController < ApplicationController
   def create
     @book = Book.new(book_params)
 
-    @book.author = Author.find(params[:author][:author_id])
+    if params[:author][:author_id] == ""
+      redirect_to :new_book, notice: 'Please select an author'
+    else
+      @book.author = Author.find(params[:author][:author_id])
 
-    respond_to do |format|
-      if @book.save
-        format.html { redirect_to @book, notice: 'Book was successfully created.' }
-        format.json { render :show, status: :created, location: @book }
-      else
-        format.html { render :new }
-        format.json { render json: @book.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @book.save
+          format.html { redirect_to @book, notice: 'Book was successfully created.' }
+          format.json { render :show, status: :created, location: @book }
+        else
+          format.html { render :new }
+          format.json { render json: @book.errors, status: :unprocessable_entity }
+        end
       end
     end
+
+    
   end
 
   # PATCH/PUT /books/1
