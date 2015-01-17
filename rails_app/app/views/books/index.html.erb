@@ -1,0 +1,42 @@
+<div class="page-header">
+  <%= link_to new_book_path, :class => 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-plus"></span>
+    New Book
+  <% end %>
+  <h1>Listing books</h1>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Author</th>
+            <th>Price</th>
+            <th>Show</th>
+            <% if current_user.try(:admin?) %>
+              <th>Edit</th>
+              <th>Destroy</th>
+            <% end %>
+        
+      </tr>
+    </thead>
+
+    <tbody>
+      <%= content_tag_for(:tr, @books) do |book| %>
+            <td><%= book.title %></td>
+            <td><%= book.description %></td>
+            <td><%= author_full_name(book.author) %></td>
+            <td><%= monetize(book.price) %></td>
+            <td><%= link_to 'Show', book %></td>
+            <% if current_user.try(:admin?) %>
+              <td><%= link_to 'Edit', edit_book_path(book) %></td>
+              <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= will_paginate @books, renderer: BootstrapPagination::Rails %>
