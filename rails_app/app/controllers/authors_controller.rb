@@ -1,6 +1,6 @@
 class AuthorsController < ApplicationController
   before_action :set_author, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_admin, only: [:edit, :update, :destroy]
+  before_action :authenticate_admin, only: [:new, :edit, :update, :destroy]
 
   # GET /authors
   # GET /authors.json
@@ -65,7 +65,7 @@ class AuthorsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_author
-      @author = Author.find(params[:id])
+      @author = Author.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

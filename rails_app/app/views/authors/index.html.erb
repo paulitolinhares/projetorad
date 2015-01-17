@@ -1,7 +1,9 @@
 <div class="page-header">
-  <%= link_to new_author_path, :class => 'btn btn-primary' do %>
-    <span class="glyphicon glyphicon-plus"></span>
-    New Author
+  <% if current_user.try(:admin?) %>
+    <%= link_to new_author_path, :class => 'btn btn-primary' do %>
+      <span class="glyphicon glyphicon-plus"></span>
+      New Author
+    <% end %>
   <% end %>
   <h1>Listing authors</h1>
 </div>

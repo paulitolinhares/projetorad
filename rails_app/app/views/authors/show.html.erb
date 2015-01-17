@@ -3,10 +3,13 @@
     <span class="glyphicon glyphicon-list-alt"></span>
     Back
   <% end %>
-  <%= link_to edit_author_path(@author), :class => 'btn btn-primary' do %>
-    <span class="glyphicon glyphicon-pencil"></span>
-    Edit
+  <% if current_user.try(:admin?) %>
+    <%= link_to edit_author_path(@author), :class => 'btn btn-primary' do %>
+      <span class="glyphicon glyphicon-pencil"></span>
+      Edit
+    <% end %>
   <% end %>
+  
   <h1>Show author</h1>
 </div>
 
@@ -40,8 +43,10 @@
             <td><%= book.description %></td>
             <td><%= monetize(book.price) %></td>
             <td><%= link_to 'Show', book %></td>
-        <td><%= link_to 'Edit', edit_book_path(book) %></td>
-        <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% if current_user.try(:admin?) %>
+              <td><%= link_to 'Edit', edit_book_path(book) %></td>
+              <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
       <% end %>
     </tbody>
   </table>
