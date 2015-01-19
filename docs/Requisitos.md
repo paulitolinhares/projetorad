@@ -17,7 +17,7 @@
 
 - Ajax
 - Content Negotion (xml, json, html, atom/RSS)
-- Slug URL; friendly_id
+- Slug URL; friendly_id ok 
 - Session & login (criptografia com salt, bcrypt); Devise; Active Admin ok
 - Mail
 - i18n

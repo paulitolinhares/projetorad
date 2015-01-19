@@ -3,9 +3,11 @@
     <span class="glyphicon glyphicon-list-alt"></span>
     Back
   <% end %>
-  <%= link_to edit_book_path(@book), :class => 'btn btn-primary' do %>
-    <span class="glyphicon glyphicon-pencil"></span>
-    Edit
+  <% if current_user.try(:admin?) %>
+    <%= link_to edit_book_path(@book), :class => 'btn btn-primary' do %>
+      <span class="glyphicon glyphicon-pencil"></span>
+      Edit
+    <% end %>
   <% end %>
   <h1>Show book</h1>
 </div>
@@ -24,3 +26,26 @@
   <dd><%= monetize(@book.price) %></dd>
 
 </dl>
+
+<label for="quantity">Quantity</label>
+<input type="number" id="quantity" name="quantity">
+<button class="btn btn-primary addToOrder-btn" data-book-id="<%= @book.id %>">Add to cart</button>
+
+<script>
+  $(function(){
+  console.log('loading listener');
+  $('.addToOrder-btn').click(function(event){
+    console.log('clicked btn');
+    event.preventDefault();
+    console.log($('#quantity').val());
+    var bookID = $(this).data('book-id');
+
+    $.post('/orders/add_item', {
+      'book_id': bookID,
+      'quantity': quantity
+    }, function(data, textStatus, xhr) {
+      console.log('order added');
+    });
+  }); 
+});
+</script>
